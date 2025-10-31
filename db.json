@@ -36,13 +36,6 @@
       "order": 2
     },
     {
-      "id": "04da",
-      "title": "Write project documentation",
-      "description": "Add README and setup instructions",
-      "column": "backlog",
-      "order": 3
-    },
-    {
       "id": "4813",
       "title": "Develop login page",
       "description": "Add form validation and error handling",
@@ -82,6 +75,13 @@
       "title": "Finalize release notes",
       "description": "Prepare documentation for release",
       "column": "done",
+      "order": 3
+    },
+    {
+      "id": "ab75",
+      "title": "Write project documentation",
+      "description": "Add README and setup instructions",
+      "column": "backlog",
       "order": 3
     }
   ]

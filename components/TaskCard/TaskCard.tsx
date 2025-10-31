@@ -4,6 +4,7 @@ import { useState } from "react";
 import AddEditTaskModal, {
   TaskInput,
 } from "../AddEditTaskModal/AddEditTaskModal";
+import DeleteTaskModal from "../DeleteTaskModal/DeleteTaskModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -20,6 +21,7 @@ type TaskCardProps = {
 
 const TaskCard = ({ id, title, description, column, order }: TaskCardProps) => {
   const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const queryClient = useQueryClient();
 
   // dnd-kit sortable
@@ -71,10 +73,7 @@ const TaskCard = ({ id, title, description, column, order }: TaskCardProps) => {
           </button>
           <button
             className="btn btn-sm "
-            onClick={() =>
-              confirm(`You Sure you want to delete this task`) &&
-              deleteMutation.mutate()
-            }
+            onClick={() => setShowDelete(true)}
             title="Delete"
           >
             <Image src="/delete.svg" alt="edit" width={25} height={25} />
@@ -86,6 +85,13 @@ const TaskCard = ({ id, title, description, column, order }: TaskCardProps) => {
           onSave={handleEditSave}
           initial={{ title, description, column, order }}
           isEditing
+        />
+        <DeleteTaskModal
+          show={showDelete}
+          onHide={() => setShowDelete(false)}
+          onDelete={() => deleteMutation.mutate()}
+          title={title}
+          description={description}
         />
       </div>
     </div>
