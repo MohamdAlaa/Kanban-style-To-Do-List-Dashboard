@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import axios from "axios";
+import api from "../../lib/api";
 import Image from "next/image";
 
 type TaskCardProps = {
@@ -38,7 +39,7 @@ const TaskCard = ({ id, title, description, column, order }: TaskCardProps) => {
 
   const editMutation = useMutation({
     mutationFn: (task: TaskInput) =>
-      axios.put(`http://localhost:4000/tasks/${id}`, { id, ...task }),
+      api.put(`/tasks/${id}`, { id, ...task }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
 

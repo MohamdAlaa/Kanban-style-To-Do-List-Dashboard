@@ -8,6 +8,7 @@ import {
   DragEndEvent,
 } from "@dnd-kit/core";
 import axios from "axios";
+import api from "../../lib/api";
 import Column from "../Column/Column";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -69,14 +70,12 @@ const KanbanBoard = () => {
     const overTaskId = getTaskIdFromDnd(over.id);
     const targetColumn = overTaskId ? sourceColumn : String(over.id);
     if (targetColumn !== sourceColumn) {
-      const targetRes = await axios.get<Task[]>(
-        `http://localhost:4000/tasks?column=${encodeURIComponent(
-          targetColumn
-        )}&_sort=order&_order=asc`
+      const targetRes = await api.get<Task[]>(
+        `/tasks?column=${encodeURIComponent(targetColumn)}&_sort=order&_order=asc`
       );
       const lastOrder = targetRes.data.at(-1)?.order ?? 0;
 
-      await axios.patch(`http://localhost:4000/tasks/${activeTaskId}`, {
+      await api.patch(`/tasks/${activeTaskId}`, {
         column: targetColumn,
         order: lastOrder + 1,
       });
@@ -87,10 +86,8 @@ const KanbanBoard = () => {
       return;
     }
 
-    const colRes = await axios.get<Task[]>(
-      `http://localhost:4000/tasks?column=${encodeURIComponent(
-        sourceColumn
-      )}&_sort=order&_order=asc`
+    const colRes = await api.get<Task[]>(
+      `/tasks?column=${encodeURIComponent(sourceColumn)}&_sort=order&_order=asc`
     );
     const colTasks = colRes.data;
 
@@ -113,7 +110,7 @@ const KanbanBoard = () => {
     await Promise.all(
       reordered.map((t, i) =>
         t.order !== i + 1
-          ? axios.patch(`http://localhost:4000/tasks/${t.id}`, { order: i + 1 })
+          ? api.patch(`/tasks/${t.id}`, { order: i + 1 })
           : Promise.resolve()
       )
     );

@@ -9,6 +9,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import axios from "axios";
+import api from "../../lib/api";
 import TaskCard from "../TaskCard/TaskCard";
 import { Task } from "../KanbanBoard/KanbanBoard";
 import { RootState } from "../../stores/store";
@@ -17,10 +18,8 @@ const COLUMN_HEIGHT = "calc(100vh - 170px)";
 const PAGE_SIZE = 10000;
 
 const fetchColumnTasks = async (column: string, page: number) => {
-  const res = await axios.get<Task[]>(
-    `http://localhost:4000/tasks?column=${encodeURIComponent(
-      column
-    )}&_sort=order&_order=asc&_page=${page}&_limit=${PAGE_SIZE}`
+  const res = await api.get<Task[]>(
+    `/tasks?column=${encodeURIComponent(column)}&_sort=order&_order=asc&_page=${page}&_limit=${PAGE_SIZE}`
   );
   return res.data;
 };

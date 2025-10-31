@@ -26,14 +26,14 @@
       "title": "Design homepage",
       "description": "Include hero section",
       "column": "backlog",
-      "order": 1
+      "order": 2
     },
     {
       "id": "19f2",
       "title": "Set up API structure",
       "description": "Create folder structure for API",
       "column": "backlog",
-      "order": 2
+      "order": 1
     },
     {
       "id": "4813",

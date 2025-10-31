@@ -9,6 +9,7 @@ import AddEditTaskModal, {
 } from "../AddEditTaskModal/AddEditTaskModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import api from "../../lib/api";
 import { Task } from "../KanbanBoard/KanbanBoard";
 
 const Header = () => {
@@ -19,13 +20,11 @@ const Header = () => {
   const queryClient = useQueryClient();
   const addTaskMutation = useMutation({
     mutationFn: async (task: Omit<Task, "id" | "order">) => {
-      const res = await axios.get<Task[]>(
-        `http://localhost:4000/tasks?column=${encodeURIComponent(
-          task.column
-        )}&_sort=order&_order=asc`
+      const res = await api.get<Task[]>(
+        `/tasks?column=${encodeURIComponent(task.column)}&_sort=order&_order=asc`
       );
       const lastOrder = res.data.at(-1)?.order ?? 0;
-      return axios.post("http://localhost:4000/tasks", {
+      return api.post("/tasks", {
         ...task,
         order: lastOrder + 1,
       });

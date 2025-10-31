@@ -93,7 +93,8 @@ const JQueryDynamicList = () => {
           `<li class="list-group-item d-flex justify-content-between align-items-center fade-in-item">
             <span>${itemValue.trim()}</span>
             <button class="btn btn-sm btn-outline-danger delete-btn" type="button">
-              🗑️ Delete
+            
+              Delete
             </button>
           </li>`
         );
