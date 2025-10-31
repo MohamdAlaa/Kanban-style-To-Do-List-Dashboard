@@ -71,7 +71,9 @@ const KanbanBoard = () => {
     const targetColumn = overTaskId ? sourceColumn : String(over.id);
     if (targetColumn !== sourceColumn) {
       const targetRes = await api.get<Task[]>(
-        `/tasks?column=${encodeURIComponent(targetColumn)}&_sort=order&_order=asc`
+        `/tasks?column=${encodeURIComponent(
+          targetColumn
+        )}&_sort=order&_order=asc`
       );
       const lastOrder = targetRes.data.at(-1)?.order ?? 0;
 

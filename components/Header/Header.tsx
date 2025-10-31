@@ -21,7 +21,9 @@ const Header = () => {
   const addTaskMutation = useMutation({
     mutationFn: async (task: Omit<Task, "id" | "order">) => {
       const res = await api.get<Task[]>(
-        `/tasks?column=${encodeURIComponent(task.column)}&_sort=order&_order=asc`
+        `/tasks?column=${encodeURIComponent(
+          task.column
+        )}&_sort=order&_order=asc`
       );
       const lastOrder = res.data.at(-1)?.order ?? 0;
       return api.post("/tasks", {

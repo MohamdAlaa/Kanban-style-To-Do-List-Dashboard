@@ -19,7 +19,9 @@ const PAGE_SIZE = 10000;
 
 const fetchColumnTasks = async (column: string, page: number) => {
   const res = await api.get<Task[]>(
-    `/tasks?column=${encodeURIComponent(column)}&_sort=order&_order=asc&_page=${page}&_limit=${PAGE_SIZE}`
+    `/tasks?column=${encodeURIComponent(
+      column
+    )}&_sort=order&_order=asc&_page=${page}&_limit=${PAGE_SIZE}`
   );
   return res.data;
 };

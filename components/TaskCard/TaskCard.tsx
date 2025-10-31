@@ -38,8 +38,7 @@ const TaskCard = ({ id, title, description, column, order }: TaskCardProps) => {
   };
 
   const editMutation = useMutation({
-    mutationFn: (task: TaskInput) =>
-      api.put(`/tasks/${id}`, { id, ...task }),
+    mutationFn: (task: TaskInput) => api.put(`/tasks/${id}`, { id, ...task }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
 
