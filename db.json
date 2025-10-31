@@ -8,13 +8,6 @@
       "order": 1
     },
     {
-      "id": "6",
-      "title": "Write documentation",
-      "description": "Document the API endpoints and usage",
-      "column": "review",
-      "order": 2
-    },
-    {
       "id": "7",
       "title": "Fix login bug",
       "description": "Resolve the issue with login errors",
@@ -29,39 +22,67 @@
       "order": 1
     },
     {
-      "id": "45c5",
-      "title": "aaa",
-      "description": "ddddd",
+      "id": "df2f",
+      "title": "Design homepage",
+      "description": "Include hero section",
+      "column": "backlog",
+      "order": 1
+    },
+    {
+      "id": "19f2",
+      "title": "Set up API structure",
+      "description": "Create folder structure for API",
+      "column": "backlog",
+      "order": 2
+    },
+    {
+      "id": "04da",
+      "title": "Write project documentation",
+      "description": "Add README and setup instructions",
+      "column": "backlog",
+      "order": 3
+    },
+    {
+      "id": "4813",
+      "title": "Develop login page",
+      "description": "Add form validation and error handling",
       "column": "in-progress",
       "order": 1
     },
     {
-      "id": "9eb7",
-      "title": "dsadsa",
-      "description": "asdasda",
+      "id": "861d",
+      "title": "Implement authentication",
+      "description": "Integrate with backend API",
+      "column": "in-progress",
+      "order": 2
+    },
+    {
+      "id": "2051",
+      "title": "Create navbar component",
+      "description": "Add navigation links and logo",
       "column": "in-progress",
       "order": 3
     },
     {
-      "id": "bd49",
-      "title": "1",
-      "description": "1111111",
-      "column": "backlog",
-      "order": 1
-    },
-    {
-      "id": "7bca",
-      "title": "22",
-      "description": "22222222",
-      "column": "backlog",
+      "id": "bcd0",
+      "title": "Test login functionality",
+      "description": "Ensure correct error messages",
+      "column": "review",
       "order": 2
     },
     {
-      "id": "c781",
-      "title": "3",
-      "description": "3333333333333",
-      "column": "in-progress",
-      "order": 2
+      "id": "bbd6",
+      "title": "Review dashboard layout",
+      "description": "Check responsiveness and spacing",
+      "column": "review",
+      "order": 3
+    },
+    {
+      "id": "8aa6",
+      "title": "Finalize release notes",
+      "description": "Prepare documentation for release",
+      "column": "done",
+      "order": 3
     }
   ]
 }
