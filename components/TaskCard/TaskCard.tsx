@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import axios from "axios";
+import Image from "next/image";
 
 type TaskCardProps = {
   id: string;
@@ -62,18 +63,21 @@ const TaskCard = ({ id, title, description, column, order }: TaskCardProps) => {
         <p className="card-text">{description}</p>
         <div className="d-flex justify-content-end gap-2">
           <button
-            className="btn btn-sm btn-outline-primary"
+            className="btn btn-sm "
             onClick={() => setShowEdit(true)}
             title="Edit"
           >
-            ✏️
+            <Image src="/edit.svg" alt="edit" width={25} height={25} />
           </button>
           <button
-            className="btn btn-sm btn-outline-danger"
-            onClick={() => confirm("Delete task?") && deleteMutation.mutate()}
+            className="btn btn-sm "
+            onClick={() =>
+              confirm(`You Sure you want to delete this task`) &&
+              deleteMutation.mutate()
+            }
             title="Delete"
           >
-            🗑️
+            <Image src="/delete.svg" alt="edit" width={25} height={25} />
           </button>
         </div>
         <AddEditTaskModal

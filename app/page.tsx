@@ -7,11 +7,8 @@ export default function Home() {
     <main className="container py-4">
       <Header />
       <KanbanBoard />
-      
-      {/* Bonus Task: jQuery Dynamic List */}
-      <div className="mt-5">
-        <JQueryDynamicList />
-      </div>
+      <hr className="mt-5" />
+      <JQueryDynamicList />
     </main>
   );
 }

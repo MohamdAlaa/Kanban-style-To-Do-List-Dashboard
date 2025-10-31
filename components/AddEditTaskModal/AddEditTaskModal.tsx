@@ -41,7 +41,12 @@ const AddEditTaskModal = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !description.trim()) return;
-    onSave({ title: title.trim(), description: description.trim(), column });
+    onSave({
+      title: title.trim(),
+      description: description.trim(),
+      column,
+      order: initial?.order ?? 0,
+    });
     onHide();
   };
 

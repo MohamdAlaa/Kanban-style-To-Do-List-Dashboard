@@ -6,7 +6,6 @@ const JQueryDynamicList = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only run on client side
     if (typeof window === "undefined") return;
 
     // Dynamically load jQuery if not already loaded
@@ -34,11 +33,10 @@ const JQueryDynamicList = () => {
 
       const $container = $(containerRef.current);
 
-      // Create the HTML structure
       const html = `
         <div class="card border-0 shadow-sm">
           <div class="card-body">
-            <h5 class="card-title mb-4">✨ jQuery Dynamic List (Bonus Task)</h5>
+            <h5 class="card-title mb-4">jQuery Dynamic List</h5>
             
             <div class="input-group mb-3">
               <input 
@@ -75,27 +73,22 @@ const JQueryDynamicList = () => {
       const $errorMessage = $("#errorMessage");
       const $itemsList = $("#itemsList");
 
-      // Add item button click handler
       $addButton.on("click", function () {
         const itemValue = $input.val() as string;
 
-        // Check if input is empty
         if (!itemValue || itemValue.trim() === "") {
           $errorMessage.fadeIn();
 
-          // Fade out error after 2 seconds
           setTimeout(() => {
             $errorMessage.fadeOut();
           }, 2000);
           return;
         }
 
-        // Remove "No items yet" placeholder if exists
         if ($itemsList.children(".text-muted").length > 0) {
           $itemsList.empty();
         }
 
-        // Create list item
         const $listItem = $(
           `<li class="list-group-item d-flex justify-content-between align-items-center fade-in-item">
             <span>${itemValue.trim()}</span>
@@ -105,41 +98,32 @@ const JQueryDynamicList = () => {
           </li>`
         );
 
-        // Add delete button handler
-        $listItem.find(".delete-btn").on("click", function () {
-          $(this)
-            .closest("li")
-            .fadeOut(300, function () {
-              $(this).remove();
+        $listItem.find(".delete-btn").on("click", function (this: HTMLElement) {
+          const $button = $(this);
+          $button.closest("li").fadeOut(300, function (this: HTMLElement) {
+            $(this).remove();
 
-              // Show "No items yet" if list is empty
-              if ($itemsList.children().length === 0) {
-                $itemsList.append(
-                  '<li class="list-group-item text-muted" style="border: none; padding: 0;">No items yet</li>'
-                );
-              }
-            });
+            if ($itemsList.children().length === 0) {
+              $itemsList.append(
+                '<li class="list-group-item text-muted" style="border: none; padding: 0;">No items yet</li>'
+              );
+            }
+          });
         });
 
-        // Add item to list with fade-in animation
         $listItem.hide().appendTo($itemsList).fadeIn(300);
 
-        // Clear input
         $input.val("");
 
-        // Focus back on input
         $input.focus();
       });
 
-      // Allow adding items with Enter key
       $input.on("keypress", function (e: any) {
         if (e.which === 13) {
-          // Enter key
           $addButton.click();
         }
       });
 
-      // Cleanup jQuery events on unmount
       return () => {
         $container.off();
       };

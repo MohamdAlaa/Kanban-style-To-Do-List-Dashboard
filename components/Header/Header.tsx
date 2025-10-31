@@ -16,11 +16,9 @@ const Header = () => {
   const search = useSelector((state: RootState) => state.tasks.search);
   const [show, setShow] = useState(false);
 
-  // React Query for create
   const queryClient = useQueryClient();
   const addTaskMutation = useMutation({
     mutationFn: async (task: Omit<Task, "id" | "order">) => {
-      // Append to bottom of the chosen column
       const res = await axios.get<Task[]>(
         `http://localhost:4000/tasks?column=${encodeURIComponent(
           task.column

@@ -63,13 +63,11 @@ const KanbanBoard = () => {
     const activeData = active.data?.current as Task | undefined;
     if (!activeData) return;
 
-    const activeTaskId = getTaskIdFromDnd(active.id) ?? activeData.id; // string
+    const activeTaskId = getTaskIdFromDnd(active.id) ?? activeData.id;
     const sourceColumn = activeData.column;
 
-    const overTaskId = getTaskIdFromDnd(over.id); // null if dropped over column container
-    const targetColumn = overTaskId ? sourceColumn : String(over.id); // if over a task => same column; else column container id
-
-    // 1) Cross-column move → append at end of target column
+    const overTaskId = getTaskIdFromDnd(over.id);
+    const targetColumn = overTaskId ? sourceColumn : String(over.id);
     if (targetColumn !== sourceColumn) {
       const targetRes = await axios.get<Task[]>(
         `http://localhost:4000/tasks?column=${encodeURIComponent(
@@ -83,15 +81,12 @@ const KanbanBoard = () => {
         order: lastOrder + 1,
       });
 
-      // Invalidate both columns
       COLUMNS.forEach((c) =>
         queryClient.invalidateQueries({ queryKey: ["tasks", c.key] })
       );
       return;
     }
 
-    // 2) Intra-column reorder (same column)
-    // Fetch full ordered list for this column
     const colRes = await axios.get<Task[]>(
       `http://localhost:4000/tasks?column=${encodeURIComponent(
         sourceColumn
@@ -102,8 +97,6 @@ const KanbanBoard = () => {
     const fromIdx = colTasks.findIndex((t) => t.id === activeTaskId);
     if (fromIdx === -1) return;
 
-    // Dropped over another task -> move before that task
-    // Dropped over column container -> move to the END
     const toIdx =
       overTaskId != null
         ? colTasks.findIndex((t) => t.id === overTaskId)
@@ -114,11 +107,9 @@ const KanbanBoard = () => {
     const reordered = [...colTasks];
     const [moved] = reordered.splice(fromIdx, 1);
 
-    // If dragging down and target is after current end, insert at the end
     const insertAt = toIdx >= reordered.length ? reordered.length : toIdx;
     reordered.splice(insertAt, 0, moved);
 
-    // Normalize order to 1..N and PATCH only changed rows
     await Promise.all(
       reordered.map((t, i) =>
         t.order !== i + 1
